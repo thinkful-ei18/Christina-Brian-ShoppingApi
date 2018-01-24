@@ -8,8 +8,8 @@ $(document).ready(function() {
 
 store.items.push(Item.create('apples'));
 
-api.getItems('apples', function(data) {
-  console.log(data);
+api.createItem('pears', (newItem) => {
+  api.getItems((items) => {
+    console.log(items);
+  });
 });
-
-console.log(api.BASE_URL);
