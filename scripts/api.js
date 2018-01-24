@@ -29,6 +29,19 @@ const api = (function() {
         data : JSON.stringify(updateData),
         success : callback,
       });
+    },
+
+    deleteItem : function (id, callback) {
+      $.ajax ({
+        url : `${BASE_URL}/items/${id}`,
+        method : 'DELETE',
+        success : (log) => {
+          console.log('delete successful!');
+          callback();
+        }
+
+
+      });
     }
 
 

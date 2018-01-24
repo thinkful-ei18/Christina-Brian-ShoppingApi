@@ -48,7 +48,7 @@ const shoppingList = (function(){
     }
   
     // render the shopping list in the DOM
-    console.log('`render` ran');
+    //console.log('`render` ran');
     const shoppingListItemsString = generateShoppingItemsString(items);
   
     // insert that HTML into the DOM
@@ -92,8 +92,12 @@ const shoppingList = (function(){
       // get the index of the item in store.items
       const id = getItemIdFromElement(event.currentTarget);
       // delete the item
-      store.findAndDelete(id);
+      api.deleteItem(id, (callback) => {
+        console.log('hello delete from shopping-list');
+        store.findAndDelete(id);
+      });
       // render the updated shopping list
+      console.log('render 2 outside api call');
       render();
     });
   }
@@ -102,7 +106,8 @@ const shoppingList = (function(){
     $('.js-shopping-list').on('submit', '#js-edit-item', event => {
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
-      const itemName = $(event.currentTarget).find('.shopping-item').val();
+      // line below - Changed to newName!
+      const newName = $(event.currentTarget).find('.shopping-item').val();
       api.updateItem(id, { name: newName }, () => {
         store.findAndUpdate(id, { name: newName });
         render();
